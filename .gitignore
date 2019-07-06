@@ -1,0 +1,9 @@
+target/
+build/
+.gradle/
+*settings.xml
+*.iml
+*.idea
+*.project
+*.classpath
+*.prefs
