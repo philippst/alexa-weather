@@ -1,8 +1,8 @@
 package de.philippst.alexa.weather.skill.service;
 
 import com.amazon.ask.model.events.skillevents.Permission;
+import de.philippst.alexa.weather.common.mapper.AlexaUserRowMapper;
 import de.philippst.alexa.weather.common.model.AlexaUser;
-import de.philippst.alexa.weather.skill.mapper.AlexaUserRowMapper;
 import org.jdbi.v3.core.Jdbi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

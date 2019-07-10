@@ -1,19 +1,17 @@
 package de.philippst.alexa.weather.notification.util;
 
-import com.amazon.api.proactive.model.AudiencePayload;
-import com.amazon.api.proactive.model.AudienceType;
-import com.amazon.api.proactive.model.ProactiveEvent;
-import com.amazon.api.proactive.model.RelevantAudience;
-import com.amazon.api.proactive.model.schema.EventSchema;
-import com.amazon.api.proactive.model.schema.LocalizedAttribute;
-import com.amazon.api.proactive.model.schema.WeatherAlertActivatedSchema;
-import com.amazon.api.proactive.model.schema.WeatherAlertType;
+import de.philippst.alexa.weather.notification.model.RelevantAudiencePayload;
+import de.philippst.alexa.weather.notification.model.WeatherAlertType;
+import com.amazon.ask.model.services.proactiveEvents.CreateProactiveEventRequest;
+import com.amazon.ask.model.services.proactiveEvents.Event;
+import com.amazon.ask.model.services.proactiveEvents.RelevantAudience;
+import com.amazon.ask.model.services.proactiveEvents.RelevantAudienceType;
 import de.philippst.alexa.weather.notification.cap.EventCode;
 import de.philippst.alexa.weather.notification.cap.Info;
 import de.philippst.alexa.weather.notification.exception.UnkownCapEventException;
+import de.philippst.alexa.weather.notification.model.EventWeatherAlertPayload;
 
-import java.time.ZonedDateTime;
-import java.util.Arrays;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public class WeatherAlertUtils {
@@ -52,31 +50,32 @@ public class WeatherAlertUtils {
         }
     }
 
-    public static ProactiveEvent createProactiveEvent(String alexaUserId, String alertId, WeatherAlertType weatherAlertType){
+    public static CreateProactiveEventRequest createProactiveEventRequest(String alexaUserId, String alertId,
+                                                                          WeatherAlertType weatherAlertType){
 
-        RelevantAudience relevantAudience = new RelevantAudience();
-        relevantAudience.setType(AudienceType.Unicast);
-        relevantAudience.setPayload(new AudiencePayload(alexaUserId));
+        RelevantAudiencePayload relevantAudiencePayload = RelevantAudiencePayload.builder().withUser(alexaUserId).build();
 
-        EventSchema eventSchema = new WeatherAlertActivatedSchema(weatherAlertType,"localizedattribute:source");
+        RelevantAudience relevantAudience = RelevantAudience.builder()
+                .withPayload(relevantAudiencePayload)
+                .withType(RelevantAudienceType.UNICAST)
+                .build();
 
-        ProactiveEvent proactiveEvent = new ProactiveEvent();
-        proactiveEvent.setTimestamp(ZonedDateTime.now());
-        proactiveEvent.setReferenceId(alertId);
-        proactiveEvent.setExpiryTime(ZonedDateTime.now().plusMinutes(30));
-        proactiveEvent.setEvent(eventSchema);
-        proactiveEvent.setRelevantAudience(relevantAudience);
+        EventWeatherAlertPayload eventWeatherAlertPayload = new EventWeatherAlertPayload(weatherAlertType,
+                "localizedattribute:source");
 
-        LocalizedAttribute localizedAttribute = new LocalizedAttribute();
-        localizedAttribute.setLocale("de-DE");
-        localizedAttribute.setSource("Wetterwarnung");
+        Event event = Event.builder()
+                    .withName("AMAZON.WeatherAlert.Activated")
+                    .withPayload(eventWeatherAlertPayload)
+                    .build();
 
-        localizedAttribute.setLocale("en-US");
-        localizedAttribute.setSource("Wetterwarnung");
+        CreateProactiveEventRequest createProactiveEventRequest = CreateProactiveEventRequest.builder()
+                .withEvent(event)
+                .withTimestamp(OffsetDateTime.now())
+                .withReferenceId(alertId)
+                .withExpiryTime(OffsetDateTime.now().plusMinutes(30))
+                .withRelevantAudience(relevantAudience)
+                .build();
 
-        proactiveEvent.setLocalizedAttributes(Arrays.asList(localizedAttribute));
-
-        return null;
+        return createProactiveEventRequest;
     }
-
 }

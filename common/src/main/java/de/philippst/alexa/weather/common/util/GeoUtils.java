@@ -1,5 +1,6 @@
-package de.philippst.alexa.weather.notification.util;
+package de.philippst.alexa.weather.common.util;
 
+import com.github.filosganga.geogson.model.Point;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Polygon;
@@ -25,6 +26,13 @@ public class GeoUtils {
             coordinateList.add(new Coordinate(Double.valueOf(pointCoord[1]),Double.valueOf(pointCoord[0])));
         }
         return geometryFactory.createPolygon(coordinateList.toArray(new Coordinate[0]));
+    }
+
+    /* Simple parser for WKT point string, e.g. 'POINT(123.123 456.789)' */
+    public static Point wktToPoint(String wkt){
+        if(wkt == null) return null;
+        String[] parts = wkt.substring(6,wkt.length() -1).split(" ");
+        return Point.from(Double.valueOf(parts[0]),Double.valueOf(parts[1]));
     }
 
 }

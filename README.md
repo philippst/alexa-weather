@@ -30,7 +30,7 @@ bei erster Verwendung des Skills einmalig der Zugriff auf die Postleitzahl in de
  erfolgen ohne Gewähr und Anspruch auf Vollständigkeit.*
 
 
-## Aufbau
+## Architektur
 
 Dieser Skill ist in Java entwickelt und besteht aus mehreren Gradle Modulen.
 
@@ -41,10 +41,10 @@ Dieser Skill ist in Java entwickelt und besteht aus mehreren Gradle Modulen.
 | :crawler      | Periodischer Crawler für DWD FTP Server               |                           |
 | :common       | Datenmodelle und Utilities zur Wiederverwendung       |                           |
 
-### Skill
+## Skill
 
 
-#### Was passiert wann?
+### Was passiert wann?
 
 
 | Action                       | PSC | PC / PA | SE | SD | user | device |
@@ -64,7 +64,13 @@ Dieser Skill ist in Java entwickelt und besteht aus mehreren Gradle Modulen.
 * SD = Skill Disabled Handler
 
 
-### Notification
+## Notification
+
+Das *Notification* Modul wird als AWS Lambda Funktion bereitgestellt und durch AWS automatisch bei Eingang neuer 
+Dateien im S3 Bucket (Ablage der Alert CAP Dateien durch Crawler) aufgerufen. Als Aufrufparameter erhält die Lambda 
+Funktion Details der neu eingegangenen Dateien.
+
+
 
 Hinweise zur Entwicklung:
 ```
@@ -126,7 +132,7 @@ Important settings in skill manifest (skill.json)
 ...
 ```
 
-### Crawler
+## Crawler
 
 
-### Common
+## Common

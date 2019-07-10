@@ -49,7 +49,7 @@ public class LambdaRequestHandler implements RequestHandler<S3Event, Void> {
 
         List<String> alertFiles = new ArrayList<>();
         input.getRecords().stream().map(this::processS3Record).forEach(alertFiles::addAll);
-        logger.debug("Received #{} alerts.",alertFiles.size());
+        logger.debug("Received #{} CAP files for further processing.",alertFiles.size());
 
         try {
             List<Alert> alertList = capXmlService.alertsFromString(alertFiles);
@@ -77,10 +77,10 @@ public class LambdaRequestHandler implements RequestHandler<S3Event, Void> {
                 S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent();
                 ZipInputStream zis = new ZipInputStream(s3ObjectInputStream)
         ){
-            logger.debug("Opened ZIP input stream from '{}'",s3Object.getKey());
             ZipEntry zipEntry;
             while((zipEntry = zis.getNextEntry())!=null) {
-                logger.debug("ZIP contains file '{}'",zipEntry.getName());
+                if(zipEntry.isDirectory()) continue;
+                logger.debug("Received file: '{}'",zipEntry.getName());
                 String entry = IOUtils.toString(zis);
                 fileData.add(entry);
             }

@@ -2,7 +2,7 @@ package de.philippst.alexa.weather.skill.mapper;
 
 import com.github.filosganga.geogson.model.Point;
 import de.philippst.alexa.weather.common.model.GeocodeCache;
-import de.philippst.alexa.weather.skill.util.GeoUtils;
+import de.philippst.alexa.weather.common.util.GeoUtils;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 import org.slf4j.Logger;

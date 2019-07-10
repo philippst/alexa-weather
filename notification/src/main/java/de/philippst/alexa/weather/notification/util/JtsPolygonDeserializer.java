@@ -3,6 +3,7 @@ package de.philippst.alexa.weather.notification.util;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import de.philippst.alexa.weather.common.util.GeoUtils;
 import org.locationtech.jts.geom.Polygon;
 
 import java.io.IOException;

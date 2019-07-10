@@ -1,9 +1,9 @@
-package de.philippst.alexa.weather.skill.mapper;
+package de.philippst.alexa.weather.common.mapper;
 
 import com.github.filosganga.geogson.model.Point;
 import de.philippst.alexa.weather.common.dwd.Severity;
 import de.philippst.alexa.weather.common.model.AlexaUser;
-import de.philippst.alexa.weather.skill.util.GeoUtils;
+import de.philippst.alexa.weather.common.util.GeoUtils;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
@@ -35,4 +35,5 @@ public class AlexaUserRowMapper implements RowMapper<AlexaUser> {
         }
         return alexaUser;
     }
+
 }
