@@ -1,6 +1,7 @@
 package de.philippst.alexa.weather.skill.service;
 
 import com.amazon.ask.model.events.skillevents.Permission;
+import de.philippst.alexa.weather.common.dwd.Severity;
 import de.philippst.alexa.weather.common.mapper.AlexaUserRowMapper;
 import de.philippst.alexa.weather.common.model.AlexaUser;
 import org.jdbi.v3.core.Jdbi;
@@ -121,5 +122,16 @@ public class AlexaUserService {
                         .execute()
         );
     }
+
+    public void updateUserNotificationLevel(String userId, Severity severity){
+        logger.debug("Update notification level to {} for user in DB:'{}'", severity.getPriority(),userId);
+        jdbi.withHandle(handle ->
+                handle.createUpdate("UPDATE alexa_user SET notification_level = :level WHERE id = :userId")
+                        .bind("userId",userId)
+                        .bind("level",severity.getPriority())
+                        .execute()
+        );
+    }
+
 
 }

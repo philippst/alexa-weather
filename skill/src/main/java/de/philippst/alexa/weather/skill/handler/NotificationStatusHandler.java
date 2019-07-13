@@ -56,8 +56,9 @@ public class NotificationStatusHandler implements RequestHandler {
 
     private Optional<Response> notificationEnabledResponse(HandlerInput input, AlexaUser alexaUser){
         String helpText = String.format(
-                "Du erhältst Benachrichtigungen ab Warnstufe '%s' '%s'. Eine Änderung der Warnstufe ist in Kürze " +
-                        "möglich´.",
+                "Du erhältst Benachrichtigungen ab Stufe %s; '%s' '%s'. " +
+                "Sage 'Alexa, ändere Benachrichtigung von Wetterwarnung.' um dies zu ändern.",
+                alexaUser.getSeverity().getLevel(),
                 alexaUser.getSeverity().getDescription(),
                 alexaUser.getSeverity().getColorGerman()
         );

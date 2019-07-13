@@ -2,21 +2,23 @@ package de.philippst.alexa.weather.common.dwd;
 
 public enum Severity {
 
-    MINOR(10,"Wetterwarnung","yellow", "gelb"),
-    MODERATE(20,"Markante Wetterwarnung","orange", "orange"),
-    SEVERE(30,"Unwetterwarnung","red", "rot"),
-    EXTREME(50,"Extreme Unwetterwarnung","violet", "violett");
+    MINOR(10,"Wetterwarnung","yellow", "gelb",1),
+    MODERATE(20,"Markante Wetterwarnung","orange", "orange",2),
+    SEVERE(30,"Unwetterwarnung","red", "rot",3),
+    EXTREME(40,"Extreme Unwetterwarnung","violet", "violett",4);
 
     private Integer priority;
     private String description;
     private String color;
     private String colorGerman;
+    private Integer level;
 
-    Severity(Integer priority, String description, String color, String colorGerman) {
+    Severity(Integer priority, String description, String color, String colorGerman, Integer level) {
         this.priority = priority;
         this.description = description;
         this.color = color;
         this.colorGerman = colorGerman;
+        this.level = level;
     }
 
     public Integer getPriority() {
@@ -33,6 +35,10 @@ public enum Severity {
 
     public String getColorGerman() {
         return colorGerman;
+    }
+
+    public Integer getLevel() {
+        return level;
     }
 
     public static Severity fromPriority(int priority){

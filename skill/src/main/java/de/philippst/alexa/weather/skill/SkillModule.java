@@ -27,7 +27,8 @@ public class SkillModule {
                        ProactiveSubscriptionChangedHandler proactiveSubscriptionChangedHandler,
                        PermissionAcceptedHandler permissionAcceptedHandler,
                        PermissionChangedHandler permissionChangedHandler,
-                       NotificationStatusHandler notificationStatusHandler){
+                       NotificationStatusHandler notificationStatusHandler,
+                       NotificationChangeHandler notificationChangeHandler){
 
         return Skills.custom()
                 .withApiClient(new OkHttpApiClient())
@@ -43,6 +44,7 @@ public class SkillModule {
                         helpIntentHandler,
                         launchRequestHandler,
                         notificationStatusHandler,
+                        notificationChangeHandler,
                         skillDisabledHandler,
                         skillEnabledHandler,
                         sessionEndedRequestHandler
