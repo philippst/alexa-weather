@@ -88,12 +88,8 @@ public class AlertProcessor {
                 WeatherAlertUtils.createProactiveEventRequest(alexaUser.getUserId(), alert.getIdentifier(), weatherAlertType);
 
         this.alexaProactiveEventsService.sendNotification(createProactiveEventRequest);
-/*
-        this.alexaAlertLogService.save(
-                new AlexaEvent(alert.getIdentifier(),alexaUser.getId(),createProactiveEventRequest.getTimestamp().toZonedDateTime()
-                        ,createProactiveEventRequest.getTimestamp().toZonedDateTime())
-        );
-*/
+        this.alexaUserService.updateAlexaUserLastEvent(alexaUser.getUserId(),alert.getIdentifier());
+
         logger.debug("Sending notification to user was successful: {}",alexaUser.getUserId());
     }
 }

@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.Optional;
 
 public class AlexaUserService {
     private final Logger logger = LoggerFactory.getLogger(AlexaUserService.class);
@@ -31,7 +30,8 @@ public class AlexaUserService {
         return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT *, ST_AsText(position) as latlng FROM alexa_user " +
                         "WHERE ST_CONTAINS(ST_GeomFromText(:alertpolygon), position) " +
-                        "AND subscription_weather_alert = 1 AND notification_level >= :severityPriority " +
+                        "AND subscription_weather_alert = 1 AND notification_level <= :severityPriority " +
+                        "AND last_notification_timestamp < CURDATE() - INTERVAL 1 DAY " +
                         "AND test = 0b:testMode")
                         .bind("alertpolygon", GeoUtils.polygonToWkt(polygon))
                         .bind("severityPriority", severity.getPriority())
@@ -41,17 +41,15 @@ public class AlexaUserService {
         );
     }
 
-    public Optional<AlexaUser> getById(String userId) {
-        logger.debug("Lookup user in database: '{}'",userId);
-
-        return jdbi.withHandle(handle ->
-                        handle.createQuery("SELECT id, country_code, device_id, last_updated, " +
-                                "location_name, notification, postal_code, ST_AsText(position) as position " +
-                                "FROM alexa_user WHERE id = :id")
-                        .bind("id",userId)
-                        .map(new AlexaUserRowMapper())
-                        .findFirst()
+    public void updateAlexaUserLastEvent(String userId, String eventId) {
+        logger.debug("Update last user event for user:'{}'", userId);
+        jdbi.withHandle(handle ->
+                handle.createUpdate("UPDATE alexa_user " +
+                        "SET last_notification_timestamp = now(), last_notification_event = :eventId " +
+                        "WHERE id = :userId")
+                        .bind("eventId",eventId)
+                        .bind("userId", userId)
+                        .execute()
         );
     }
-
 }

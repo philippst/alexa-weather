@@ -1,8 +1,8 @@
 package de.philippst.alexa.weather.notification.service;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
+import de.philippst.alexa.weather.common.model.AlexaUser;
 import de.philippst.alexa.weather.notification.cap.Severity;
-import de.philippst.alexa.weather.notification.model.AlexaUser;
 import org.jdbi.v3.core.Jdbi;
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.Coordinate;
@@ -12,22 +12,8 @@ import org.locationtech.jts.geom.Polygon;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class AlexaUserServiceTest {
-
-    @Test
-    void getById() {
-
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/alexa_weather?useSSL=false");
-        dataSource.setUser("root");
-        dataSource.setPassword("XXXXXXXXXXXX");
-
-        Jdbi jdbi = Jdbi.create(dataSource);
-        AlexaUserService userService = new AlexaUserService(jdbi);
-        assertNotNull(userService.getById("9999-Vaterstetten"));
-    }
 
     @Test
     void findAlexaUserToNotify() {

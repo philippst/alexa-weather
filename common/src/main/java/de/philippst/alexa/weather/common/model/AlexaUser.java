@@ -25,6 +25,8 @@ public class AlexaUser {
     private LocalDate lastNotificationHint;
     private int notificationLevel = 30;
     private Severity severity;
+    private LocalDate lastNotificationTimestamp;
+    private String lastNotificationEvent;
 
     public String getUserId() {
         return userId;
@@ -136,5 +138,21 @@ public class AlexaUser {
 
     public void setSeverity(Severity severity) {
         this.severity = severity;
+    }
+
+    public LocalDate getLastNotificationTimestamp() {
+        return lastNotificationTimestamp;
+    }
+
+    public void setLastNotificationTimestamp(LocalDate lastNotificationTimestamp) {
+        this.lastNotificationTimestamp = lastNotificationTimestamp;
+    }
+
+    public String getLastNotificationEvent() {
+        return lastNotificationEvent;
+    }
+
+    public void setLastNotificationEvent(String lastNotificationEvent) {
+        this.lastNotificationEvent = lastNotificationEvent;
     }
 }

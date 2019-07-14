@@ -33,6 +33,12 @@ public class AlexaUserRowMapper implements RowMapper<AlexaUser> {
         if(rs.getDate("last_notification_hint") != null){
             alexaUser.setLastNotificationHint(rs.getDate("last_notification_hint").toLocalDate());
         }
+
+        if(rs.getDate("last_notification_timestamp") != null){
+            alexaUser.setLastNotificationTimestamp(rs.getDate("last_notification_timestamp").toLocalDate());
+        }
+        alexaUser.setLastNotificationEvent(rs.getString("last_notification_event"));
+
         return alexaUser;
     }
 
