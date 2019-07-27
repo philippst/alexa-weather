@@ -100,7 +100,7 @@ public class Alert {
 
     @Override
     public String toString() {
-        return "AlertLog{" +
+        return "Alert{" +
                 "identifier='" + identifier + '\'' +
                 ", msgType=" + msgType +
                 ", status=" + status +

@@ -22,7 +22,6 @@ public class AlexaProactiveEventsService {
         ApiConfiguration apiConfiguration = DefaultApiConfiguration.builder()
                 .withApiClient(new OkHttpApiClient())
                 .withApiEndpoint(System.getenv("ALEXA_EVENTS_API_ENDPOINT"))
-//                .withAuthorizationValue("fdgdg")
                 .withSerializer(serializer)
                 .build();
 

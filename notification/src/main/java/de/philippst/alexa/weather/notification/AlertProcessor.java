@@ -43,9 +43,12 @@ public class AlertProcessor {
         SkillStage skillStage = SkillStage.valueOf(System.getenv("SKILL_STAGE"));
 
         logger.info("Processing CAP alert: {}",alert);
+        this.alexaAlertLogService.save(alert);
 
-        if(alert.getMsgType() != MsgType.ALERT){
-            logger.debug("Ignore CAP alert because of msgType={}",alert.getMsgType());
+        if(alert.getMsgType() != MsgType.ALERT || alert.getInfo().getResponseType() == ResponseType.ALLCLEAR){
+            logger.debug("Ignore CAP alert because of msgType={} and responseType={}",
+                    alert.getMsgType(),
+                    alert.getInfo().getResponseType());
             return;
         }
 
@@ -56,10 +59,6 @@ public class AlertProcessor {
         }
 
         Info info = alert.getInfo();
-/*
-        this.alexaAlertLogService.save(new AlertLog(alert.getIdentifier(),alert.getSent(),
-                alert.getInfo().getExpires()));
-*/
 
         try {
             WeatherAlertType weatherAlertType = WeatherAlertUtils.mapWeatherAlertType(info);

@@ -31,7 +31,8 @@ public class AlexaUserService {
                 handle.createQuery("SELECT *, ST_AsText(position) as latlng FROM alexa_user " +
                         "WHERE ST_CONTAINS(ST_GeomFromText(:alertpolygon), position) " +
                         "AND subscription_weather_alert = 1 AND notification_level <= :severityPriority " +
-                        "AND last_notification_timestamp < CURDATE() - INTERVAL 1 DAY " +
+                        "AND (last_notification_timestamp < CURDATE() OR " +
+                        "last_notification_timestamp is null) " +
                         "AND test = 0b:testMode")
                         .bind("alertpolygon", GeoUtils.polygonToWkt(polygon))
                         .bind("severityPriority", severity.getPriority())

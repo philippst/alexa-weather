@@ -1,5 +1,6 @@
 package de.philippst.alexa.weather.notification.util;
 
+import de.philippst.alexa.weather.common.util.GeoUtils;
 import org.junit.jupiter.api.Test;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
