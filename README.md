@@ -29,6 +29,46 @@ bei erster Verwendung des Skills einmalig der Zugriff auf die Postleitzahl in de
  dem Deutschen Wetterdienst und den Autoren dieser Anwendung. Alle Angaben und die Bereitstellung dieser Anwendung 
  erfolgen ohne Gewähr und Anspruch auf Vollständigkeit.*
 
+## Benachrichtigung
+Dieser Skill ermöglicht die aktive Benachrichtigung bei Wetterwarnungen die den Standort des Gerätes betreffen. 
+Für die Ermittlung des Gerätestandorts wird ausschließlich das Land sowie die Postleitzahl genutzt.
+
+Folgende Warnereignisse des Deutschen Wetterdienstes können für die Benachrichtigung aktiviert werden:
+
+| Warnstufe | Bezeichnung             | Warnfarbe  | CAP Severity |
+|-----------|-------------------------|------------|--------------|
+| Stufe 1   | Wetterwarnung           | gelb       | Minor        |
+| Stufe 2   | Markante Wetterwarnung  | orange     | Moderate     |
+| Stufe 3   | Unwetterwarnung         | rot        | Severe       |
+| Stufe 4   | Extreme Unwetterwarnung | violett    | Extreme      |
+
+## Häufige Fragen zum Skill
+
+#### Wie erhalte ich Benachrichtigungen bei Wetterwarnungen?
+Bei Eingang einer Benachrichtigung ertönt einmalig ein dezenter Ton. Zusätzlich blinkt Alexa ab diesem Zeitpunkt in 
+in gelber Farbe, bis die Benachrichtung abgerufen wurde oder das Warnereignis hinfälllig ist. Auf den Sprachbefehl
+ *"Alexa, was sind meine Benachrichtigungen"* gibt Alexa die Benachrichtigung aus. 
+
+Die Benachrichtigung enthält nur die nötigsten Informationen zum Wetterereignis. Über den Sprachbefehl *"Alexa, starte 
+Wetterwarnung"* können jederzeit weitere Details wie z.B. Warnzeitraum und Empfehlungen zur Verhaltensweise 
+abgerufen werden.
+
+#### Wie kann ich nachts Benachrichtigungen stumm schalten?
+Wetterwarnungen können jeden Tag und rund um die Uhr auftreten. Es erfolgt jederzeit eine sofortige Benachrichtigung.
+
+Die Alexa Benachrichtigungsfunktion kann jedoch stumm geschaltet werden. Hierzu muss in der Alexa App im Menü 
+*Einstellungen* > *Geräteeinstellungen* die Funktion *Bitte nicht stören* aktiviert werden. Diese Funktion kann manuell 
+oder planmäßig z.B. täglich von 23.00 bis 06.00 Uhr aktiviert werden.
+
+#### Ab welcher Warnstufe erhalte ich Benachrichtigungen?
+Mit dem Sprachbefehl *"Alexa, frage Wetterwarnung ob ich Benachrichtigungen aktiviert habe"* kann geprüft werden ob 
+und ab welcher Warnstufe Benachrichtigungen aktiviert sind. 
+
+Eine Änderung der Warnstufe ist mit dem Sprachbefehl *"Alexa, ändere Benachrichtigung von Wetterwarnung."* möglich.
+
+#### Wie kann ich mich laufend zu einem Warnereignis informieren?
+Über den Sprachbefehl *"Alexa, starte Wetterwarnung"* kann jederzeit die aktuellste Warnmeldung einschließlich 
+weiterer Details abgerufen werden.
 
 ## Architektur
 
